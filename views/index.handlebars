@@ -1,0 +1,49 @@
+<div class="jumbotron" style="text-align: center;">
+    <h1>BURGERS!</h1>
+    <img href='./public/assets/imgs/burger.png'></img>
+</div>
+
+<div class="container" style="width: 100%;">
+    <div class=" to-be-devoured container"></div>
+    <h2>Devoured Burgers!</h2>
+    <ul>
+        {{#each burgers}}
+        {{#unless devoured}}
+        {{> burgers/burger devoured=true}}
+        {{/unless}}
+        {{/each}}
+    </ul>
+
+
+    <div class="devoured-burg container">
+        <h2>To Be Devoured!</h2>
+
+        <ul>
+            {{#each burgers}}
+            {{#if devoured}}
+            {{> burgers/burger devoured=false}}
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+
+    <hr>
+    <h2>New Burger!</h2>
+    <form class="new-form">
+
+
+        <div class="form-group">
+            <label for="bg">Burger Name:</label>
+            <input type="text" id="bg" name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="devoured">Devoured?</label><br>
+            <input type="radio" name="devoured" value="1" checked> DEVOURED<br>
+            <input type="radio" name="devoured" value="0"> NOT DEVOURED
+        </div>
+
+        <button type="submit">Add Burger</button>
+    </form>
+</div>
+</div>

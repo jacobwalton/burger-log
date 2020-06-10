@@ -1,18 +1,19 @@
 const connection = require("../config/connection");
 const tableName = "burgers";
 const orm = {
-  selectAll: function (callback) {
-    const queryString = "SELECT * FROM" + tableName;
+  selectAll: function (tableName, callback) {
+    const queryString = "SELECT * FROM " + tableName;
     connection.query(queryString, function (err, result) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       callback(result);
-      console.log(result);
     });
   },
 
   insertOne: function (burgers, callback) {
     var queryString =
-      "INSERT INTO" + tableName + "(burger_name, devoured) VALUES (?,?)";
+      "INSERT INTO " + tableName + " (burger_name, devoured) VALUES (?,?)";
 
     connection.query(
       queryString,

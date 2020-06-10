@@ -1,0 +1,11 @@
+body {
+  color: aqua;
+}
+
+.jumbotron {
+  text-align: left;
+}
+
+* {
+  background-color: red;
+}
