@@ -1,39 +1,40 @@
 const connection = require("../config/connection");
-const tableName = "burgers";
 const orm = {
-  selectAll: function (tableName, callback) {
-    const queryString = "SELECT * FROM " + tableName;
-    connection.query(queryString, function (err, result) {
-      if (err) {
-        throw err;
-      }
-      callback(result);
+  selectAll: (tableName, cb) => {
+    const queryString = "SELECT * FROM ??";
+    connection.query(queryString, [tableName], (err, result) => {
+      if (err) throw err;
+
+      cb(result);
     });
   },
 
-  insertOne: function (burgers, callback) {
-    var queryString =
-      "INSERT INTO " + tableName + " (burger_name, devoured) VALUES (?,?)";
+  insertOne: (tableName, burgers, cb) => {
+    const queryString = "INSERT INTO ?? (burger_name, devoured) VALUES (?,?)";
 
     connection.query(
       queryString,
-      [burgers.burger_name, burgers.devoured],
-      function (err, result) {
-        callback(result);
+      [tableName, burgers.name, burgers.devoured],
+      (err, result) => {
+        if (err) throw err;
+
+        cb(result);
       }
     );
   },
 
-  updateOne: function (burgers, callback) {
-    const queryString = "UPDATE " + tableName + " SET burger_name=? WHERE id=?";
+  updateOne: (tableName, burgers, cb) => {
+    const queryString = "UPDATE ?? SET burger_name=? WHERE id=?";
 
-    connection.query(queryString, [burgers.text, burgers.id], function (
-      err,
-      result
-    ) {
-      callback(result);
-    });
+    connection.query(
+      queryString,
+      [tableName, burgers.burger_name, burgers.id],
+      (err, result) => {
+        if (err) throw err;
+
+        cb(result);
+      }
+    );
   },
 };
-//Exports orm
 module.exports = orm;

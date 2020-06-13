@@ -3,14 +3,63 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Burger Log</title>
+    <title>EAT-DA-BURGER</title>
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    {{!-- <script src="/assets/js/cats.js"></script> --}}
 </head>
 
 <body>
     {{{ body }}}
 </body>
+
+{{!-- <script src="public/js/mainBurger.js"></script> --}}
+
+<script>
+    $(function () {
+        $(".change-devoured").on("click", function (event) {
+            event.preventDefault();
+            const id = $(this).data("id");
+            const newDevoured = $(this).data("newdevoured");
+
+            const newDevouredState = {
+                devoured: newDevoured,
+            };
+
+            $.ajax("/api/burgers/" + id, {
+                type: "PUT",
+                data: newDevouredState,
+            }).then(() => {
+                location.reload();
+            });
+        });
+
+        $(".new-form").on("submit", (event) => {
+            event.preventDefault();
+            const newBurger = {
+                name: $("#bg").val().trim(),
+                devoured: $("[name=devoured]:checked").val(),
+            };
+
+            $.ajax("/api/burgers", {
+                type: "POST",
+                data: newBurger,
+            }).then(() => {
+                location.reload();
+            });
+        });
+
+        $(".delete-burger").on("click", function (event) {
+            const id = $(this).data("id");
+
+            $.ajax("/api/burgers/" + id, {
+                type: "DELETE",
+            }).then(() => {
+                location.reload();
+            });
+        });
+    });
+
+
+</script>
 
 </html>

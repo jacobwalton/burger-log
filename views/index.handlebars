@@ -3,47 +3,51 @@
     <img href='./public/assets/imgs/burger.png'></img>
 </div>
 
-<div class="container" style="width: 100%;">
+<div class="container">
     <div class=" to-be-devoured container"></div>
-    <h2>Devoured Burgers!</h2>
+    <h2>To Be Devoured!</h2>
+
+
     <ul>
         {{#each burgers}}
         {{#unless devoured}}
+        <li>{{this.burger_name}}</li>
         {{> burgers/burger devoured=true}}
         {{/unless}}
         {{/each}}
     </ul>
+</div>
 
+<div class="devoured-burg container">
+    <h2>Devoured BURGERS!</h2>
 
-    <div class="devoured-burg container">
-        <h2>To Be Devoured!</h2>
+    <ul>
+        {{#each burgers}}
+        {{#if devoured}}
+        <li>{{this.burger_name}}</li>
+        {{> burgers/burger devoured=false}}
+        {{/if}}
+        {{/each}}
+    </ul>
+</div>
 
-        <ul>
-            {{#each burgers}}
-            {{#if devoured}}
-            {{> burgers/burger devoured=false}}
-            {{/if}}
-            {{/each}}
-        </ul>
+<hr>
+
+<form class="new-form jumbotron">
+    <h2>Add A New Burger!</h2>
+
+    <div class="form-group">
+        <label for="bg">Burger Name:</label>
+        <input type="text" id="bg" name="name">
     </div>
 
-    <hr>
-    <h2>New Burger!</h2>
-    <form class="new-form">
+    <div class="form-group">
+        <label for="devoured">Devoured?</label><br>
+        <input type="radio" name="devoured" value="1"> DEVOURED<br>
+        <input type="radio" name="devoured" value="0" checked> NOT DEVOURED
+    </div>
 
-
-        <div class="form-group">
-            <label for="bg">Burger Name:</label>
-            <input type="text" id="bg" name="name">
-        </div>
-
-        <div class="form-group">
-            <label for="devoured">Devoured?</label><br>
-            <input type="radio" name="devoured" value="1" checked> DEVOURED<br>
-            <input type="radio" name="devoured" value="0"> NOT DEVOURED
-        </div>
-
-        <button type="submit">Add Burger</button>
-    </form>
+    <button type="submit">Add Burger</button>
+</form>
 </div>
 </div>
