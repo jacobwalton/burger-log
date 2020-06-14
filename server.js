@@ -1,10 +1,10 @@
 const express = require("express");
-const PORT = process.env.PORT || 8080;
-
 const app = express();
 
-app.use(express.static(__dirname + "public"));
+const PORT = process.env.PORT || 8080;
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "public"));
 app.use(express.json());
 
 const exphbs = require("express-handlebars");
