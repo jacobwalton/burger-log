@@ -12,22 +12,22 @@
     {{{ body }}}
 </body>
 
-{{!-- <script src="public/js/mainBurger.js"></script> --}}
-
 <script>
     $(function () {
         $(".change-devoured").on("click", function (event) {
             event.preventDefault();
             const id = $(this).data("id");
-            const newDevoured = $(this).data("newdevoured");
-
-            const newDevouredState = {
-                devoured: newDevoured,
-            };
+            var newDevoured = $(this).data("newDevoured");
+            if (newDevoured = 0) {
+                newDevoured = newDevoured + 1
+            }
+            else {
+                newDevoured = newDevoured - 1
+            }
 
             $.ajax("/api/burgers/" + id, {
                 type: "PUT",
-                data: newDevouredState,
+                data: newDevoured,
             }).then(() => {
                 location.reload();
             });
@@ -48,15 +48,6 @@
             });
         });
 
-        $(".delete-burger").on("click", function (event) {
-            const id = $(this).data("id");
-
-            $.ajax("/api/burgers/" + id, {
-                type: "DELETE",
-            }).then(() => {
-                location.reload();
-            });
-        });
     });
 
 
